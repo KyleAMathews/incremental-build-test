@@ -1,4 +1,4 @@
-const NUM_PAGES = parseInt(process.env.NUM_PAGES || 5000, 10)
+const NUM_PAGES = parseInt(process.env.NUM_PAGES2 || 5000, 10)
 console.log(process.env)
 
 const blankTemplate = require.resolve(`./src/templates/blank.js`)
