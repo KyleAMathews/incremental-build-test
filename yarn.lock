@@ -5431,7 +5431,7 @@ gatsby-cli@^3.9.0:
 
 gatsby-core-utils@^2.10.0-next.1:
   version "2.10.0-next.1"
-  resolved "http://localhost:4873/gatsby-core-utils/-/gatsby-core-utils-2.10.0-next.1.tgz#fafaf4ea5a93b6bd9258309702de20d79bdfd074"
+  resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-2.10.0-next.1.tgz#fafaf4ea5a93b6bd9258309702de20d79bdfd074"
   integrity sha512-OF4ulc6JAP6eWFZP6ZFGzVvaDkbeoEJqJh4pFdfF310f4Cyc/AUDGwR4/hMT0Af2xnkXcYE/nW49i/SGBB2Sow==
   dependencies:
     ci-info "2.0.0"
@@ -5624,7 +5624,7 @@ gatsby-recipes@^0.20.0:
 
 gatsby-telemetry@2.10.0-next.1:
   version "2.10.0-next.1"
-  resolved "http://localhost:4873/gatsby-telemetry/-/gatsby-telemetry-2.10.0-next.1.tgz#5d8f192d6a9b17fc84cb956d34673e8679b0713c"
+  resolved "https://registry.yarnpkg.com/gatsby-telemetry/-/gatsby-telemetry-2.10.0-next.1.tgz#5d8f192d6a9b17fc84cb956d34673e8679b0713c"
   integrity sha512-4yUYP6Cr6Fx2yQLWWL5ZUWplbagsqVUD86cVQKR+QAa1GRfihG5kSoqJgTSTCSKlwdZ+OrB7TeC9DtHQsnwg7w==
   dependencies:
     "@babel/code-frame" "^7.14.0"
@@ -8150,9 +8150,9 @@ object-copy@^0.1.0:
     kind-of "^3.0.3"
 
 object-inspect@^1.10.3, object-inspect@^1.9.0:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.10.3.tgz#c2aa7d2d09f50c99375704f7a0adf24c5782d369"
-  integrity sha512-e5mCJlSH7poANfC8z8S9s9S2IN5/4Zb3aZ33f5s8YqoazCFzNLloLU8r5VCG+G7WoqLvAAZoVMcy3tp/3X0Plw==
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/object-inspect/-/object-inspect-1.11.0.tgz#9dceb146cedd4148a0d9e51ab88d34cf509922b1"
+  integrity sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==
 
 object-is@^1.0.1:
   version "1.1.5"
