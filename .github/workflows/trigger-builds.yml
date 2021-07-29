@@ -17,4 +17,4 @@ jobs:
     - name: curl
       uses: wei/curl@v1
       with:
-        args: -X POST https://webhook.gatsbyjs.com/hooks/data_source/publish/6ff575a7-3b3a-4800-9fd0-9f86ef6cc977
+        args: -X POST https://webhook.gatsbyjs.com/hooks/data_source/publish/0295e66a-725a-40a7-ad00-9f7325eca287
