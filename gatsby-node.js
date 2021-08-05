@@ -42,14 +42,17 @@ exports.sourceNodes = ({ getNode, actions: { createNode, touchNode } }) => {
 
 
 const blankTemplate = require.resolve(`./src/templates/blank.js`)
-exports.createPages = ({ actions: { createPage } }) => {
-  for (let step = 0; step < NUM_PAGES; step++) {
+exports.createPages = async ({ graphql, actions: { createPage } }) => {
+  console.time(`query in createPages`)
+  const result = await graphql(`{ allBenchmark { nodes { id }}}`)
+  console.timeEnd(`query in createPages`)
+  result.data.allBenchmark.nodes.forEach(node => {
     createPage({
-      path: `/path/${step}/`,
+      path: `/path/${node.id}/`,
       component: blankTemplate,
       context: {
-        id: step.toString(),
+        id: node.id,
       },
     })
-  }
+  })
 }
