@@ -6,6 +6,10 @@ setInterval(function () {
 }, 1000)
 
 module.exports = {
+  flags: {
+    PARALLEL_QUERY_RUNNING: true,
+    LMDB_STORE: true,
+  },
   siteMetadata: {
     title: `Gatsby Benchmark Create Pages`,
     description: `The createPages benchmark`,
