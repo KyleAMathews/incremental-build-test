@@ -9,7 +9,7 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "gatsby": "^3.9.1",
+    "gatsby": "^3.14.0-drupal-next.81",
     "gatsby-plugin-gatsby-cloud": "^2.10.0-stream-write.10",
     "inspector-api": "^1.4.1",
     "lmdb-store": "^1.6.13",
