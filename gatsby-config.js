@@ -1,9 +1,9 @@
-const top = require('process-top')()
+// const top = require('process-top')()
 
-setInterval(function () {
-  // Prints out a string containing stats about your Node.js process.
-  console.log(top.toString())
-}, 1000)
+// setInterval(function () {
+  // // Prints out a string containing stats about your Node.js process.
+  // console.log(top.toString())
+// }, 1000)
 
 module.exports = {
   flags: {
