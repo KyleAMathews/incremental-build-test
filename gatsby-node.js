@@ -1,5 +1,4 @@
 let NUM_PAGES = parseInt(process.env.NUM_PAGES2 || 5000, 10);
-console.log(NUM_PAGES, process.env);
 
 let recreate = [];
 let toDelete = [];
