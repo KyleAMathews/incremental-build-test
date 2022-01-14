@@ -8,8 +8,12 @@ let firstRun = true;
 // the bare minimum of content
 exports.sourceNodes = ({
   getNode,
-  actions: { createNode, touchNode, deleteNode },
+  actions: { createNode, touchNode, deleteNode, createRedirect },
 }) => {
+  for (let i = 0; i < NUM_PAGES; i++) {
+    createRedirect({ fromPath: `/old-url${i}`, toPath: `/new-url${i}`, isPermanent: true })
+  }
+  
   if (!firstRun) {
     // Site keeps growing!
     NUM_PAGES += 1;
