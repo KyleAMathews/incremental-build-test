@@ -3,6 +3,7 @@ let NUM_PAGES = parseInt(process.env.NUM_PAGES2 || 5000, 10)
 let recreate = []
 let toDelete = []
 let firstRun = true
+let buildCount = 0
 
 // Create NUM_PAGES nodes, split over NUM_TYPES types. Each node has
 // the bare minimum of content
@@ -10,6 +11,7 @@ exports.sourceNodes = ({
   getNode,
   actions: { createNode, touchNode, deleteNode, createRedirect },
 }) => {
+  // Add redirects.
   if (firstRun) {
     for (let i = 0; i < NUM_PAGES; i++) {
       createRedirect({
@@ -19,6 +21,8 @@ exports.sourceNodes = ({
       })
     }
   }
+
+  buildCount += 1
 
   if (!firstRun) {
     // Site keeps growing!
@@ -37,6 +41,18 @@ exports.sourceNodes = ({
     recreate.push(0)
   }
   console.log({ firstRun, recreate, toDelete })
+
+  // Upsert node for BuildCount
+  createNode({
+    id: `build-count`,
+    buildCount,
+    parent: null,
+    children: [],
+    internal: {
+      type: `BuildCount`,
+      contentDigest: `build-count-${buildCount}`,
+    },
+  })
 
   for (let i = 0; i < NUM_PAGES; i++) {
     if (toDelete.includes(i)) {
