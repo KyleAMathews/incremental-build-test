@@ -19,6 +19,11 @@ exports.sourceNodes = ({
         toPath: `/new-url${i}`,
         isPermanent: true,
       })
+
+      createRedirect({
+        fromPath: `/redirect-wildcard${i}/*`,
+        toPath: `/to-path${i}/*`,
+      })
     }
   }
 
