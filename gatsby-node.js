@@ -25,11 +25,23 @@ exports.sourceNodes = ({
       createRedirect({
         fromPath: `/old-url${i}`,
         toPath: `/new-url${i}`,
+        conditions: {
+          country: `ca`,
+        },
         isPermanent: true,
       })
 
       createRedirect({
-        fromPath: testWildcardRegexp(`/redirect-wildcard${i}/*`).toString(),
+        fromPath: `/old-url${i}`,
+        toPath: `/new-url${i}`,
+        isPermanent: true,
+        conditions: {
+          language: `en`
+        },
+      })
+
+      createRedirect({
+        fromPath: `/old-url?id=${i}&uid=u${i}`,
         toPath: `/to-path${i}/*`,
       })
     }
