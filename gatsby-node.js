@@ -11,14 +11,6 @@ exports.sourceNodes = ({
   getNode,
   actions: { createNode, touchNode, deleteNode, createRedirect },
 }) => {
-  const testWildcardRegexp = (wildcardRoutePath) =>
-    new RegExp(
-      `^` +
-        wildcardRoutePath
-          .replace(/:[^/]+/g, `.+`)
-          .replace(/\/\*[^/]*/, `(/.*)?`) +
-        `$`
-    )
   // Add redirects.
   if (firstRun) {
     for (let i = 0; i < NUM_PAGES; i++) {
@@ -46,9 +38,10 @@ exports.sourceNodes = ({
       })
 
       createRedirect({
-        fromPath: `/old-url?id=:id&uid=u${i}`,
+        fromPath: `/old-url?id=:id&uid=u${i}=`,
         toPath: `/to-path${i}/*`,
       })
+      console.log(`created redirects`)
     }
   }
 
