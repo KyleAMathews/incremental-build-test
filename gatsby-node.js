@@ -44,6 +44,11 @@ exports.sourceNodes = ({
         fromPath: `/old-url?id=${i}&uid=u${i}`,
         toPath: `/to-path${i}/*`,
       })
+
+      createRedirect({
+        fromPath: `/old-url?id=:id&uid=u${i}`,
+        toPath: `/to-path${i}/*`,
+      })
     }
   }
 
