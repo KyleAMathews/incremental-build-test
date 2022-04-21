@@ -28,7 +28,7 @@ exports.sourceNodes = ({
         toPath: `/new-url${i}`,
         isPermanent: true,
         conditions: {
-          language: `en`
+          language: `en`,
         },
       })
 
@@ -41,7 +41,6 @@ exports.sourceNodes = ({
         fromPath: `/old-url?id=:id&uid=u${i}=`,
         toPath: `/to-path${i}/*`,
       })
-      console.log(`created redirects`)
     }
   }
 
