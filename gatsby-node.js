@@ -5,12 +5,37 @@ let toDelete = []
 let firstRun = true
 let buildCount = 0
 
+const stringCache = new Map()
+function makeString(length) {
+  if (stringCache.has(length)) {
+    return stringCache.get(length)
+  } else {
+    var result = ``
+    var characters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`
+    var charactersLength = characters.length
+    for (var i = 0; i < characters.length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+
+    const multiply = length / result.length
+    let array = []
+    for (let i = 0; i < multiply; i++) {
+      array.push(result)
+    }
+    const str = array.join(``)
+    stringCache.set(length, str)
+    return str
+  }
+}
+
 // Create NUM_PAGES nodes, split over NUM_TYPES types. Each node has
 // the bare minimum of content
 exports.sourceNodes = ({
   getNode,
+  store,
   actions: { createNode, touchNode, deleteNode, createRedirect },
 }) => {
+  const isCleanCache = typeof getNode(`0`) === `undefined`
   // Add redirects.
   if (firstRun) {
     for (let i = 0; i < NUM_PAGES; i++) {
@@ -85,12 +110,13 @@ exports.sourceNodes = ({
     }
 
     // If run before, pick subset of 10 nodes to recreate and touch the rest.
-    if (firstRun || recreate.includes(i)) {
+    if (isCleanCache || recreate.includes(i)) {
       const content = Math.random()
       const id = i.toString()
       const node = {
         id,
         random: content,
+        longString: process.env.FAT_NODES === `true` ? makeString(10000) : ``,
         parent: null,
         children: [],
         internal: {
