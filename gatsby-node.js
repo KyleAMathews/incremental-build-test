@@ -100,8 +100,11 @@ exports.sourceNodes = async ({
     },
   })
 
+  const chunkSize = 1000
   function createNodes(start, end, cb) {
-    console.log(`createNodes`, { start, end })
+    if (start % 10000 === 0) {
+      console.log(`createNodes`, { start, end })
+    }
     for (let i = start; i < end; i++) {
       if (toDelete.includes(i)) {
         const node = getNode(i.toString())
@@ -145,7 +148,7 @@ exports.sourceNodes = async ({
         createNodes.bind(
           null,
           end,
-          end + 10000 < NUM_PAGES ? end + 10000 : NUM_PAGES,
+          end + chunkSize < NUM_PAGES ? end + chunkSize : NUM_PAGES,
           cb
         )
       )
@@ -153,7 +156,9 @@ exports.sourceNodes = async ({
   }
 
   await new Promise((resolve) => {
-    createNodes(0, NUM_PAGES > 10000 ? 10000 : NUM_PAGES, () => resolve())
+    createNodes(0, NUM_PAGES > chunkSize ? chunkSize : NUM_PAGES, () =>
+      resolve()
+    )
   })
 
   firstRun = false
