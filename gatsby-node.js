@@ -30,14 +30,13 @@ function makeString(length) {
 
 // Create NUM_PAGES nodes, split over NUM_TYPES types. Each node has
 // the bare minimum of content
-exports.sourceNodes = ({
+exports.sourceNodes = async ({
   getNode,
-  store,
   actions: { createNode, touchNode, deleteNode, createRedirect },
 }) => {
   const isCleanCache = typeof getNode(`0`) === `undefined`
   // Add redirects.
-  if (firstRun) {
+  if (firstRun && process.env.CREATE_REDIRECTS !== `false`) {
     for (let i = 0; i < NUM_PAGES; i++) {
       createRedirect({
         fromPath: `/old-url${i}`,
@@ -101,37 +100,61 @@ exports.sourceNodes = ({
     },
   })
 
-  for (let i = 0; i < NUM_PAGES; i++) {
-    if (toDelete.includes(i)) {
-      const node = getNode(i.toString())
-      if (node) {
-        deleteNode(node)
+  function createNodes(start, end, cb) {
+    console.log(`createNodes`, { start, end })
+    for (let i = start; i < end; i++) {
+      if (toDelete.includes(i)) {
+        const node = getNode(i.toString())
+        if (node) {
+          deleteNode(node)
+        }
+      }
+
+      // If run before, pick subset of 10 nodes to recreate and touch the rest.
+      if (isCleanCache || recreate.includes(i)) {
+        const content = Math.random()
+        const id = i.toString()
+        const node = {
+          id,
+          random: content,
+          longString: process.env.FAT_NODES === `true` ? makeString(10000) : ``,
+          parent: null,
+          children: [],
+          internal: {
+            type: `Benchmark`,
+            contentDigest: content.toString(),
+          },
+        }
+
+        createNode(node)
+      } else {
+        if (firstRun) {
+          touchNode(getNode(i.toString()))
+        }
       }
     }
 
-    // If run before, pick subset of 10 nodes to recreate and touch the rest.
-    if (isCleanCache || recreate.includes(i)) {
-      const content = Math.random()
-      const id = i.toString()
-      const node = {
-        id,
-        random: content,
-        longString: process.env.FAT_NODES === `true` ? makeString(10000) : ``,
-        parent: null,
-        children: [],
-        internal: {
-          type: `Benchmark`,
-          contentDigest: content.toString(),
-        },
-      }
+    if (end === NUM_PAGES) {
+      cb()
+      return
+    }
 
-      createNode(node)
-    } else {
-      if (firstRun) {
-        touchNode(getNode(i.toString()))
-      }
+    if (end < NUM_PAGES) {
+      // Schedule next operation asynchronously.
+      setImmediate(
+        createNodes.bind(
+          null,
+          end,
+          end + 10000 < NUM_PAGES ? end + 10000 : NUM_PAGES,
+          cb
+        )
+      )
     }
   }
+
+  await new Promise((resolve) => {
+    createNodes(0, NUM_PAGES > 10000 ? 10000 : NUM_PAGES, () => resolve())
+  })
 
   firstRun = false
   recreate = []
