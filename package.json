@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gatsby": "^4.18.0",
+    "gatsby-plugin-gatsby-cloud": "^4.19.0",
     "inspector-api": "^1.4.1",
     "lmdb-store": "^1.6.13",
     "node-html-parser": "^5.2.0",
