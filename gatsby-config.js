@@ -11,5 +11,4 @@ module.exports = {
     description: `The createPages benchmark`,
     author: `@gatsbyjs`,
   },
-  plugins: [`gatsby-plugin-gatsby-cloud`],
 }
